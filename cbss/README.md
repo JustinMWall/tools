@@ -21,10 +21,11 @@ The following documents the publication pipeline for CBSS data.
     - This transformation is accomplished with the `zotero-dump/src/split.py` script. Please refer to the README in that directory for usage information.
     - The output of this script should go into `data/cbss/json/` within the `syriaca-data` repository (this can be accomplished directly by setting the `split.py`'s `-o` output flag, or they can be moved to the repository manually after the fact)
 4. Run JSON to TEI XML transform
-    - The GitHub repository for this code is in https://github.com/srophe/zotero2bibl/
-    - **TBD: Refer to that repository's documentation for steps to run this code**
+    - This transformation takes place using the `json-to-tei/src/json-to-tei.py` script, a Python wrapper for an XQuery script that uses the [zotero2bibl](https://github.com/srophe/zotero2bibl/) module.
+    - Please refer to the README in the `json-to-tei` directory for usage information.
 5. Store output TEI XML data in the `syriaca-data` repository
     - Either set the output directory for the TEI XML transform, or copy/paste the resulting XML files into that directory
+6. Publish TEI XML data by committing changes to the `syriaca-data` `gaddel_development` branch
 
 
 # Repository Structure

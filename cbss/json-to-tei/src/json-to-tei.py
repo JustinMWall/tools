@@ -32,8 +32,8 @@ def run_transform(session, zotero_config, filepath, output_dir):
 if __name__ == "__main__":
     # Set up and parse command line arguments
     parser = argparse.ArgumentParser(
-                        prog='Syriaca Maintenance',
-                        description='Python wrapper for running Syriaca.org maintenance scripts',
+                        prog='CBSS JSON to TEI Transform for Zotero data',
+                        description='Python wrapper for running JSON to TEI XML tranform, for CBSS bibliography records',
                         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument("-i", "--input", help="Path to the input directory or file to transform")
