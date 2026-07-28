@@ -31,12 +31,15 @@ usage: CBSS JSON to TEI Transform for Zotero data [-h] [-i INPUT] [-o OUTPUT] [-
 
 Python wrapper for running JSON to TEI XML tranform, for CBSS bibliography records
 
+
 options:
   -h, --help            show this help message and exit
   -i INPUT, --input INPUT
                         Path to the input directory or file to transform (default: None)
   -o OUTPUT, --output OUTPUT
                         Path to the output directory where transformed files should be stored (default: None)
+  -d DEPRECATED, --deprecated DEPRECATED
+                        Path to the deprecated directory, where deprecated files should be stored (default: None)
   -c CONFIG, --config CONFIG
                         Path to the configuration file (default: config.yaml)
 ```
@@ -54,6 +57,7 @@ Once the above installation steps are complete, the following steps provide a si
 5. Run the script via `poetry run python src/json-to-tei.py` with the following flags:
   1. `-i /path/to/input/file/or/folder`. Either a file path to the JSON file, for running on a single file; or a directory, to run on an entire directory
   2. `-o /path/to/output/folder/`. Where the data should be stored once transformed
+  3. `-d /path/to/deprecated/folder/`. Where records tagged as `_deprecated` should be stored (e.g., `syriaca-data/data/deprecated/bibl/tei/`)
   3. `-c path/to/configuration/file.yaml`. The path to the configuration file you created and updated in the above steps
 
 
@@ -67,7 +71,7 @@ In a separate terminal window (e.g., in a VS Code terminal), navigate to the cur
 
 To run the script, use the following command:
 
-`poetry run python src/json-to-tei.py -i /path/to/input/file/or/folder -o /path/to/output/folder/ -c path/to/configuration/file.yaml`
+`poetry run python src/json-to-tei.py -i /path/to/input/file/or/folder -o /path/to/output/folder/ -d /path/to/deprecated/folder/ -c path/to/configuration/file.yaml`
 
 The `-i` flag can be set to a single JSON file, which will run the transform just on that file. Or it can be set to a directory, in which case the transform will run on all the JSON files in that directory.
 

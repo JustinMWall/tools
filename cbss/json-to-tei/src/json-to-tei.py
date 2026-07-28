@@ -18,15 +18,20 @@ def install_xquery_packages(session, packages):
             print(f"Installing package {pkg['name']}")
             session.execute(f"REPO INSTALL {pkg['location']}")
 
-def run_transform(session, zotero_config, filepath, output_dir):
+def run_transform(session, zotero_config, filepath, output_dir, deprecated_dir):
     with open(config["script"]["path"], mode="r") as fh:
         # load the query into the BaseX session
         query = session.query(fh.read())
 
         # Bind external variables based on the CLI
         query.bind("$input-file", filepath)
-        query.bind("output-directory", output_dir)
-        query.bind("path-to-zotero-config", zotero_config)
+        query.bind("$output-directory", output_dir)
+        # Use deprecated_dir, but fallback to same output_dir
+        if deprecated_dir:
+            query.bind("$deprecated-directory", deprecated_dir)
+        else:
+            query.bind("$output-directory", output_dir)
+        query.bind("$path-to-zotero-config", zotero_config)
         return query.execute()
 
 if __name__ == "__main__":
@@ -38,6 +43,7 @@ if __name__ == "__main__":
 
     parser.add_argument("-i", "--input", help="Path to the input directory or file to transform")
     parser.add_argument("-o", "--output", help="Path to the output directory where transformed files should be stored")
+    parser.add_argument("-d", "--deprecated", help="Path to the deprecated directory, where deprecated files should be stored")
     parser.add_argument("-c", "--config", help="Path to the configuration file", default="config.yaml")
 
     args = parser.parse_args()
@@ -87,14 +93,16 @@ if __name__ == "__main__":
                    output = run_transform(session=session, 
                                           zotero_config=config["zotero_config"], 
                                           filepath=args.input+file, 
-                                          output_dir=args.output)
+                                          output_dir=args.output,
+                                          deprecated_dir=args.deprecated)
                    print(output)
         # Otherwise run on the full directory
         elif(os.path.isfile(args.input) and args.input.endswith(".json")):
             output = run_transform(session=session, 
                                     zotero_config=config["zotero_config"], 
                                     filepath=args.input, 
-                                    output_dir=args.output)
+                                    output_dir=args.output,
+                                    deprecated_dir=args.deprecated)
             print(output)
         else:
             print(f"Input argument, {args.input}, is not a directory or a JSON file.")
