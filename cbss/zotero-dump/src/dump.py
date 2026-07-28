@@ -34,7 +34,7 @@ async def get_zotero_data(call_context, session, sleep_time=1):
             "context": call_context,
             "url": str(re.request_info.url),
             "status_code": re.status,
-            "response_headers": re.headers,
+            "response_headers": dict(re.headers),
             "error": str(re)
         }
         return logged_error
@@ -161,7 +161,7 @@ async def main(config):
     async with aiohttp.ClientSession(headers=config['session_headers']) as session:
         print("Getting list of Item Keys from Zotero API")
         expected_keys = []
-        async with session.get(config['zotero_api_base'], params={"format": "keys"}) as response:
+        async with session.get(config['zotero_api_base'], params={"format": "keys", "since": init_req_params["since"]}) as response:
             print(f"URL: {response.url}. Status Code: {response.status}")
             keys = await response.text()
             expected_keys = keys.splitlines()
