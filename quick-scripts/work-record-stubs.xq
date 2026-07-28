@@ -328,7 +328,7 @@ let $stubHeader := element {"teiHeader"} {
     }
   },
   element {"revisionDesc"} {
-    attribute {"status"} {"draft"},
+    attribute {"status"} {"provisional"},
     element {"change"} {
       attribute {"who"} {"http://syriaca.org/documentation/editors.xml#"},
       attribute {"when"} {},
