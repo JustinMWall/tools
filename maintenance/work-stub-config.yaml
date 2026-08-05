@@ -11,20 +11,20 @@ commands: # Leave as-is (optionally, add SET WRITEBACK true, but not necessary f
     - SET SERIALIZER indent=yes,omit-xml-declaration=no
     - SET EXPORTER indent=yes,omit-xml-declaration=no
 scripts: # Order matters, as each will be executed in sequence
-    - path: /home/arren/Documents/GitHub/tools/quick-scripts/work-record-stubs.xq # UPDATE based on path in your local machine
+    - path: C:/Users/daniel.schwartz/Documents/GitHub/tools/quick-scripts/work-record-stubs.xq # UPDATE based on path in your local machine
       description: Creates stub Work records from a CSV input
       variables:
         - name: $path-to-csv
-          value: "/home/arren/Downloads/Work URIs for Translation Corpus - Comprehensive.csv" # UPDATE based on path in your local machine
+          value: "file:///C:/Users/daniel.schwartz/Downloads/stubRecords/stubs2026-07-31.csv" # UPDATE based on path in your local machine
           description: The path to the input CSV containing the work data to create stubs from
         - name: $path-to-syriaca-data
-          value: /home/arren/Documents/GitHub/syriaca-data/ # UPDATE based on path in your local machine
+          value: "file:///C:/Users/daniel.schwartz/Documents/GitHub/syriaca-data/" # UPDATE based on path in your local machine
           description: The path to the Syriaca repository on your local machine
         - name: $path-to-template
-          value: /home/arren/Documents/GitHub/tools/quick-scripts/works-template.xml # UPDATE based on path in your local machine
+          value: "file:///C:/Users/daniel.schwartz/Documents/GitHub/tools/quick-scripts/works-template.xml" # UPDATE based on path in your local machine
           description: Path to an XML template into which the stub data will be merged to make NHSL-compliant records
         - name: $output-directory
-          value: /home/arren/Documents/GitHub/tools/out/ # UPDATE based on where to save in your local machine
+          value: "file:///C:/Users/daniel.schwartz/Downloads/stubRecords/out/" # UPDATE based on where to save in your local machine
           description: The output directory where files will be saved after they are created.
         - name: $multi-author-delimiter # OPTIONAL: update if using a different delimiter for multi-author works
           value: "\\|"
