@@ -1,0 +1,40 @@
+basex_session:
+    host: localhost
+    port: 1984
+    user: admin
+    password: admin
+packages: # The XQuery package dependencies to install when the script runs, if they don't already exist
+    - name: http://www.functx.com
+      naespace: http://www.functx.com
+      location: https://files.basex.org/modules/expath/functx-1.0.xar
+    # TODO: maybe add an option to purge and reinstall? because it won't catch new versions from GitHub if it's already installed
+commands:
+    - SET SERIALIZER indent=yes,omit-xml-declaration=no
+    - SET EXPORTER indent=yes,omit-xml-declaration=no
+    - SET WRITEBACK true
+scripts: # Order matters, as each will be executed in sequence
+    - path: xquery/title-from-headwords.xq
+      description: Updates the titleStmt/title for records based on their English and Syriac headwords
+      # TBD: if a command needs to override the main commands they can go here as 'commands'?
+      variables:
+        - name: $path-to-syriaca-data
+          value: /home/arren/Documents/GitHub/syriaca-data/
+          description: The path to the Syriaca repository on your local machine
+    - path: xquery/nhsl-creators-from-sbd-headwords.xq
+      description: Updates the author and editor elements in NHSL records based on SBD titles
+      variables:
+        - name: $path-to-syriaca-data
+          value: /home/arren/Documents/GitHub/syriaca-data/
+          description: The path to the Syriaca repository on your local machine
+    - path: xquery/generate-uri-headwords-table.xq
+      description: Outputs a CSV table containing the URI and headwords of all entities (minus CBSS)
+      variables:
+        - name: $path-to-syriaca-data
+          value: /home/arren/Documents/GitHub/syriaca-data/
+          description: The path to the Syriaca repository on your local machine
+        - name: $output-directory
+          value: /home/arren/Desktop/
+          description: The output directory in which to store the generated CSV file
+        - name: $output-file-name
+          value: headword-index.csv
+          description: The file name for the generated CSV file

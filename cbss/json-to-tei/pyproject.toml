@@ -1,0 +1,21 @@
+[project]
+name = "json-to-tei"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "William L Potter",email = "44096602+wlpotter@users.noreply.github.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pyyaml (>=6.0.3,<7.0.0)",
+    "argparse (>=1.4.0,<2.0.0)",
+    "basexclient (>=8.4.4,<9.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "json_to_tei", from = "src"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
